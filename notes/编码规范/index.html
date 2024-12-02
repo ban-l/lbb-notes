@@ -1,0 +1,971 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="LuBanban's Notes">
+      
+      
+        <meta name="author" content="LuBanban">
+      
+      
+      
+        <link rel="prev" href="../%E7%B4%A2%E5%BC%95%E7%BA%A6%E6%9D%9F/">
+      
+      
+        <link rel="next" href="../%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
+    
+    
+      
+        <title>编码规范 - Lbb Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Lbb Notes" class="md-header__button md-logo" aria-label="Lbb Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lbb Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              编码规范
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lbb Notes" class="md-nav__button md-logo" aria-label="Lbb Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lbb Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to MkDocs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DDL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DDL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EXPLAIN/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EXPLAIN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HikariCP%E8%BF%9E%E6%8E%A5%E6%B1%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HikariCP连接池
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BB%BA%E8%A1%A8%E8%A7%84%E7%BA%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    建表规约
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%97%A5%E6%9C%9F%E8%8C%83%E5%9B%B4%E6%9F%A5%E8%AF%A2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    日期范围查询
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%B4%A2%E5%BC%95%E7%BA%A6%E6%9D%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    索引约束
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    编码规范
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    远程连接问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BF%9E%E6%8E%A5%E6%B1%A0%E4%BD%BF%E7%94%A8%E7%8E%87100%25/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    连接池使用率100%
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="_1">编码规范</h1>
+<h1 id="_2"><strong>常量定义</strong></h1>
+<ol>
+<li>long 或 Long 赋值时，数值后使用<strong>大写 L</strong>，不能是小写 l，小写容易跟数字混淆，造成误解。<ol>
+<li>说明：<code>public static final Long NUM = 2l;</code> 写的是数字的 21，还是 Long 型的 2？</li>
+</ol>
+</li>
+<li>浮点数类型的数值后缀统一为<strong>大写的 D 或 F</strong>。<ol>
+<li>正例：</li>
+<li><code>public static final double HEIGHT = 175.5D;</code></li>
+<li><code>public static final float WEIGHT = 150.3F;</code></li>
+</ol>
+</li>
+</ol>
+<h1 id="_3"><strong>代码格式</strong></h1>
+<ol>
+<li>任何二目、三目运算符的左右两边都需要加一个空格。</li>
+<li>采用 4 个空格缩进，禁止使用 Tab 字符。</li>
+<li>不同逻辑、不同语义、不同业务的代码之间插入一个空行，分隔开来以提升可读性。</li>
+</ol>
+<h1 id="oop"><strong>OOP 规约</strong></h1>
+<ol>
+<li>所有<strong>整型包装类对象</strong>之间值的<strong>比较</strong>，全部使用 <strong>equals</strong> 方法比较。</li>
+<li>任何货币金额，均以最小货币单位且为<strong>整型类型</strong>进行存储。</li>
+<li><strong>浮点数</strong>之间的等值判断<ol>
+<li>基本数据类型<strong>不能使用 ==</strong> 进行比较</li>
+<li>包装数据类型<strong>不能使用equals</strong>进行比较</li>
+</ol>
+</li>
+<li>BigDecimal 的等值比较应使用 <strong>compareTo</strong>() 方法，而不是 equals() 方法。</li>
+<li>禁止使用构造方法 BigDecimal(double) 的方式把 double 值转化为 BigDecimal 对象。<ol>
+<li>优先推荐入参为 String 的构造方法，或使用 BigDecimal 的 <strong>valueOf</strong> 方法，</li>
+<li>正例：</li>
+<li><code>BigDecimal recommend1 = new BigDecimal("0.1");</code></li>
+<li><code>BigDecimal recommend2 = BigDecimal.valueOf(0.1);</code></li>
+</ol>
+</li>
+<li>
+<p>使用索引访问用 String 的 <strong>split</strong> 方法得到的数组时，需做最后一个分隔符后有无内容的检查，
+否则会有抛 IndexOutOfBoundsException 的风险。</p>
+<p><code>java
+String str = "a,b,c,,";
+String[] ary = str.split(",");
+// 预期大于 3，结果等于 3
+System.out.println(ary.length);
+// 预期结果为 [a, b, c, , ]，结果为 [a, b, c]
+System.out.println(Arrays.toString(ary));</code></p>
+</li>
+<li>
+<p>类内方法定义的顺序依次是：公有方法或保护方法 &gt; 私有方法 &gt; getter / setter 方法。</p>
+</li>
+</ol>
+<h1 id="_4"><strong>日期时间</strong></h1>
+<ol>
+<li>日期格式化时，传入 pattern 中表示年份统一使用小写的 y。<ol>
+<li>正例：表示日期和时间的格式如下所示：</li>
+<li><code>new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")</code></li>
+</ol>
+</li>
+<li>在日期格式中分清楚大写的 M 和小写的 m，大写的 H 和小写的 h 分别指代的意义。<ol>
+<li>说明：日期格式中的这两对字母表意如下：<ol>
+<li>表示月份是大写的 M</li>
+<li>表示分钟则是小写的 m</li>
+<li>24 小时制的是大写的 H</li>
+<li>12 小时制的则是小写的 h</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>获取当前毫秒数：<code>System.currentTimeMillis()</code>。</li>
+<li>获取纳秒级时间，<code>System.nanoTime()</code>。</li>
+<li>在 JDK8 中，针对<strong>统计时间</strong>等场景，推荐使用 <code>Instant</code> 类。</li>
+<li>不允许在程序任何地方中使用：<ol>
+<li>java.sql.Date</li>
+<li>java.sql.Time </li>
+<li>java.sql.Timestamp</li>
+</ol>
+</li>
+<li>
+<p>禁止在程序中写死一年为 365 天，避免在公历闰年时出现日期转换错误或程序逻辑错误。</p>
+<p><code>java
+// 获取今年的天数
+int daysOfThisYear = LocalDate.now().lengthOfYear();
+// 获取指定某年的天数
+int daysOfYear = LocalDate.of(2010, 1, 1).lengthOfYear();</code></p>
+</li>
+<li>
+<p>使用枚举值来指代月份。如果使用数字，注意 Date，Calendar 等日期相关类的月份 month 取
+值范围从 0 到 11 之间。</p>
+<ol>
+<li>说明：参考 JDK 原生注释，Month value is 0-based. e.g., 0 for January.</li>
+<li>正例：Calendar.JANUARY，Calendar.FEBRUARY，Calendar.MARCH 等来指代相应月份来进行传参或比较。</li>
+</ol>
+</li>
+</ol>
+<h1 id="_5"><strong>集合处理</strong></h1>
+<ol>
+<li>判断所有集合内部的元素<strong>是否为空</strong>，使用 <code>isEmpty()</code> 方法，而不是 size() == 0 的方式。</li>
+<li>只要覆写 <code>equals</code>，就必须覆写 <code>hashCode</code>。<ol>
+<li>因为 Set 存储的是不重复的<strong>对象</strong>，依据 hashCode 和 equals 进行判断</li>
+<li>所以 Set 存储的<strong>对象</strong>必须覆写这两种方法。</li>
+</ol>
+</li>
+<li>
+<p>在使用 <code>java.util.stream.Collectors</code>类的 <code>toMap()</code>方法转为 Map 集合时，一定要使用参数类型为 <code>BinaryOperator</code>，参数名为 <code>mergeFunction</code> 的方法，否则当出现<strong>相同 key</strong> 时会<strong>抛出</strong>
+<code>IllegalStateException</code> 异常。</p>
+<ol>
+<li>参数 <code>mergeFunction</code> 的作用是当出现 <strong>key 重复</strong>时，自定义对 <strong>value</strong> 的<strong>处理策略</strong>。</li>
+</ol>
+<p>```java
+// 正例
+List<Pair\<String, Double>> pairArrayList = new ArrayList&lt;&gt;(3);
+pairArrayList.add(Pair.of("version", 6.28));
+pairArrayList.add(Pair.of("version", 12.19));
+pairArrayList.add(Pair.of("version", 6.28));
+Map<String, Double> map = pairArrayList.stream().collect(Collectors.toMap(Pair::getKey, Pair::getValue, (v1, v2) -&gt; v2));
+// map: {version=6.28}</p>
+<p>// 反例
+String[] departments = new String[]{"RDC", "RDC", "KKB"};
+Map<Integer, String> map2 = Arrays.stream(departments)
+        .collect(Collectors.toMap(String::hashCode, str -&gt; str));
+// java.lang.IllegalStateException: Duplicate key RDC
+```</p>
+</li>
+<li>
+<p>使用 <code>Map</code> 的方法 keySet() / values() / entrySet() 返回集合对象时，不可以对其进行添加元素
+操作，否则会抛出 <code>UnsupportedOperationException</code> 异常。</p>
+</li>
+<li><code>Collections</code> 类返回的对象，如：emptyList() / singletonList() 等都是 immutable list，不可
+对其进行添加或者删除元素的操作。<ol>
+<li>如果查询无结果，返回 Collections.emptyList() 空集合对象，调用方一旦在返回的集合中进行了添加元素的操作，就会触发 <code>UnsupportedOperationException</code> 异常。</li>
+</ol>
+</li>
+<li>ArrayList 的 <strong>subList</strong> 结果不可强转成 ArrayList，否则会抛出 <code>ClassCastException</code> 异常：<ol>
+<li>subList() 返回的是 ArrayList 的内部类 SubList，并不是 ArrayList 本身，而是 ArrayList 的一个视图，对于SubList 的所有操作最终会反映到原列表上。</li>
+</ol>
+</li>
+<li>在 <strong>subList</strong> 场景中，高度注意对<strong>父集合</strong>元素的增加或删除，均会<strong>导致子列表</strong>的遍历、增加、删
+除产生 <code>ConcurrentModificationException</code> <strong>异常</strong>。</li>
+<li>
+<p>使用<strong>集合转数组</strong>的方法，必须使用集合的<code>toArray(T[] array)</code></p>
+<ol>
+<li>传入的是类型完全一致、长度为0 的空数组</li>
+</ol>
+<p><code>java
+List&lt;String&gt; list = new ArrayList&lt;&gt;(2);
+list.add("guan");
+list.add("bao");
+String[] array = list.toArray(new String[0]);</code></p>
+</li>
+<li>
+<p>使用 Collection 接口任何实现类的 <code>addAll()</code>方法时，要对输入的集合参数进行 <strong><code>NPE</code> 判断</strong>。</p>
+<ol>
+<li>addAll() 方法的第一行代码即 Object[] a = c.toArray()；</li>
+<li>其中 c 为输入集合参数，如果为 null，则直接抛出异常。</li>
+</ol>
+</li>
+<li>
+<p>使用工具类 <code>Arrays.asList()</code> 把<strong>数组转换成集合</strong>时，不能使用其修改集合相关的方法，它的 add/ remove / clear 方法会抛出 <code>UnsupportedOperationException</code> 异常。</p>
+<ol>
+<li>asList 的返回对象是一个 <strong>Arrays 内部类</strong>，并没有实现集合的修改方法。</li>
+<li><code>Arrays.asList</code> 体现的是<strong>适配器模式</strong>，只是<strong>转换接口</strong>，<strong>后台的数据仍是数组</strong>。</li>
+</ol>
+<p><code>java
+String[] str = new String[]{"yang", "guan", "bao"};
+List list = Arrays.asList(str);
+list.add("yangguanbao"); // 运行时异常。
+str[0] = "change"; // list 中的元素也会随之修改，反之亦然。</code></p>
+</li>
+<li>
+<p>不要在 foreach 循环里进行元素的 remove / add 操作。</p>
+</li>
+<li><code>remove</code> 元素请使用 <code>iterator</code> 方式，如果并发操作，需要对 iterator 对象加锁。</li>
+<li>集合初始化时，指定集合初始值大小。</li>
+<li>使用 <code>entrySet</code> 遍历 Map 类集合 KV</li>
+<li>
+<p>Map 类集合 K / V 能不能存储 <code>null</code> 值的情况，如下表格：</p>
+<table>
+<thead>
+<tr>
+<th>集合类</th>
+<th>Key</th>
+<th>Value</th>
+<th>Super</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hashtable</td>
+<td>不允许为 null</td>
+<td>不允许为 null</td>
+<td>Dictionary</td>
+<td>线程安全</td>
+</tr>
+<tr>
+<td>TreeMap</td>
+<td>不允许为 null</td>
+<td><strong>允许为 null</strong></td>
+<td>AbstractMap</td>
+<td>线程不安全</td>
+</tr>
+<tr>
+<td>ConcurrentHashMap</td>
+<td>不允许为 null</td>
+<td>不允许为 null</td>
+<td>AbstractMap</td>
+<td>锁分段技术（JDK8:CAS）</td>
+</tr>
+<tr>
+<td>HashMap</td>
+<td><strong>允许为 null</strong></td>
+<td><strong>允许为 null</strong></td>
+<td>AbstractMap</td>
+<td>线程不安全</td>
+</tr>
+<tr>
+<td>16. <strong>有序性</strong>指集合遍历的<strong>结果</strong>是按某种<strong>比较</strong>规则依次<strong>排列</strong>的：有序性（sort）、无序性（unsort）</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>17. <strong>稳定性</strong>指集合每次遍历的元素<strong>次序是一定</strong>的：稳定性（order）、不稳定性（unorder）</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1. ArrayList 是 order / unsort</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2. HashMap 是 unorder / unsort</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3. TreeSet 是 order / sort</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+<h1 id="_6">并发处理</h1>
+<ol>
+<li>线程资源必须通过线程池提供，不允许在应用中自行显式创建线程。</li>
+<li>线程池不允许使用 <code>Executors</code> 去创建，而是通过 <code>ThreadPoolExecutor</code> 的方式</li>
+<li><code>Executors</code> 返回的线程池对象的弊端如下：<ol>
+<li><code>FixedThreadPool</code> 和 <code>SingleThreadPool</code>：允许的<strong>请求队列长度</strong>为 Integer.MAX_VALUE，可能会堆积大量的请求，从而导致 OOM。</li>
+<li><code>CachedThreadPool</code>：允许的<strong>创建线程数量</strong>为 Integer.MAX_VALUE，可能会创建大量的线程，从而导致 OOM。</li>
+<li><code>ScheduledThreadPool</code>：允许的<strong>请求队列长度</strong>为 Integer.MAX_VALUE，可能会堆积大量的请求，从而导致 OOM。</li>
+</ol>
+</li>
+<li><code>SimpleDateFormat</code> 是<strong>线程不安全</strong>的类，一般<strong>不要定义为</strong> <code>static</code> 变量，如果定义为 static，必须加锁，或者使用 DateUtils 工具类。</li>
+<li>JDK8及以上，可以使用 <code>Instant</code> 代替 <code>Date</code>，<code>LocalDateTime</code> 代替 <code>Calendar</code>，<code>DateTimeFormatter</code> 代替<code>SimpleDateFormat</code></li>
+<li>
+<p>必须回收自定义的 <code>ThreadLocal</code> 变量记录的当前线程的值</p>
+<p><code>java
+objectThreadLocal.set(userInfo);
+try {
+    // ...
+} finally {
+    objectThreadLocal.remove();
+}</code></p>
+</li>
+<li>
+<p>高并发时，<strong>同步调用</strong>应该去考量<strong>锁的性能损耗</strong>。</p>
+<ol>
+<li>能用无锁数据结构，就不要用锁；</li>
+<li>能锁区块，就不要锁整个方法体；</li>
+<li>能用对象锁，就不要用类锁。</li>
+</ol>
+</li>
+<li>
+<p>在使用尝试机制来获取锁的方式中，进入业务代码块之前，必须先判断当前线程是否持有锁。锁的释放规则与锁的阻塞等待方式相同。</p>
+<p><code>java
+Lock lock = new XxxLock();
+// ...
+boolean isLocked = lock.tryLock();
+if (isLocked) {
+    try {
+        doSomething();
+        doOthers();
+    } finally {
+        lock.unlock();
+    }
+}</code></p>
+</li>
+<li>
+<p><strong>并发修改同一记录时</strong>，避免更新丢失，<strong>需要加锁</strong>。</p>
+<ol>
+<li>要么在<strong>应用层加锁</strong>、要么在<strong>缓存加锁</strong>、要么在数据库层使用<strong>乐观锁</strong>，使用 version 作为更新依据。</li>
+<li>如果每次访问冲突概率小于 20%，推荐使用乐观锁，否则使用悲观锁。</li>
+<li>乐观锁的重试次数不得小于 3 次。</li>
+</ol>
+</li>
+<li>避免 <code>Random</code> 实例被多线程使用，虽然共享该实例是线程安全的，但会因竞争同一 seed 导致
+的性能下降。</li>
+<li>
+<p>通过双重检查锁(double-checked locking)实现<strong>延迟初始化</strong>，需要将<strong>目标属性</strong>声明为<code>volatile</code> </p>
+<p><code>java
+public class LazyInitDemo {
+    private volatile Helper helper = null;
+    public Helper getHelper() {
+        if (helper == null) {
+            synchronized (this) {
+                if (helper == null) {
+                    helper = new Helper();
+                }
+            }
+        }
+        return helper;
+    }
+    // other methods and fields...
+}</code></p>
+</li>
+<li>
+<p><code>ThreadLocal</code> 对象使用 <code>static</code> 修饰，ThreadLocal 无法解决共享对象的更新问题。</p>
+<ol>
+<li>这个变量是针对一个线程内所有操作共享的，所以设置为静态变量，所有此类实例<strong>共享</strong>此静态变量，也就是说在类第一次被使用时装载，只分配一块存储空间，所有此类的对象（只要是这个线程内定义的）都可以操控这个变量。</li>
+</ol>
+</li>
+</ol>
+<h1 id="_7"><strong>控制语句</strong></h1>
+<ol>
+<li>当 <code>switch</code> 括号内的变量类型为 <code>String</code> 并且此变量为外部参数时，必须先进行 null 判断<ol>
+<li>若参数为null，则会抛出空指针异常。</li>
+</ol>
+</li>
+<li>在高并发场景中，<strong>避免使用“等于”判断</strong>作为中断或退出的条件。</li>
+<li>表达异常的分支时，<strong>少用 if-else</strong> 方式。<ol>
+<li>如果使用 if()...else if()...else...方式表达逻辑，避免后续代码维护困难，请勿超过 3 层。</li>
+<li>超过 3 层的 if-else 的逻辑判断代码可以使用卫语句、策略模式、状态模式等来实现。</li>
+</ol>
+</li>
+<li>不要在其它表达式（尤其是条件表达式）中，插入<strong>赋值</strong>语句。<ol>
+<li>赋值语句需要清晰地单独成为一行。</li>
+</ol>
+</li>
+<li>循环体中的语句要考量性能，以下操作尽量移至循环体外处理<ol>
+<li>如定义对象、变量、获取数据库连接，进行不必要的 try-catch 操作。</li>
+</ol>
+</li>
+<li>需要进行参数校验：<ol>
+<li>调用频次低的方法。</li>
+<li>执行时间开销很大的方法。</li>
+<li>需要极高稳定性和可用性的方法。</li>
+<li>对外提供的开放接口，不管是 RPC / API / HTTP 接口。</li>
+<li>敏感权限入口。</li>
+</ol>
+</li>
+</ol>
+<h1 id="_8">注释规约</h1>
+<ol>
+<li>类、类属性、类方法的注释必须使用 Javadoc 规范，使用 /*<em> 内容 </em>/ 格式。</li>
+<li>
+<p>所有的类都必须添加创建者和创建日期。</p>
+<p><code>java
+/**
+ * @author lubanban
+ * @date 2024/11/15
+ */</code></p>
+</li>
+<li>
+<p>特殊注释标记</p>
+<ol>
+<li>待办事宜（TODO）</li>
+<li>错误，不能工作（FIXME）</li>
+</ol>
+</li>
+</ol>
+<h1 id="_9">前后端规约</h1>
+<ol>
+<li>前后端交互的 <code>API</code>，需要明确协议、域名、路径、请求方法、请求内容、状态码、响应体。<ol>
+<li>协议：生产环境必须使用 <code>HTTPS</code>。</li>
+<li>路径：每一个 <code>API</code> 需对应一个路径，表示 <code>API</code> 具体的请求地址：<ol>
+<li>代表一种<strong>资源</strong>，只能为名词，推荐使用复数，不能为动词，请求方法已经表达动作意义。</li>
+<li>URL 路径<strong>不能使用大写</strong>，单词如果需要<strong>分隔</strong>，统一使用<strong>下划线</strong>。</li>
+<li>路径禁止携带表示请求内容类型的后缀，比如".json"，".xml"，通过 accept 头表达即可。</li>
+</ol>
+</li>
+<li>请求方法：对<strong>具体操作</strong>的定义（<strong>操作资源</strong>），常见的请求方法如下：<ol>
+<li>GET：从服务器取出资源。</li>
+<li>POST：在服务器新建一个资源。</li>
+<li>PUT：在服务器更新资源。</li>
+<li>DELETE：从服务器删除资源。</li>
+</ol>
+</li>
+<li>请求内容：URL 带的参数必须无敏感信息或符合安全要求；body 里带参数时必须设置 <code>Content-Type</code>。</li>
+<li>响应体：响应体 body 可放置多种数据类型，由 Content-Type 头来确定。</li>
+</ol>
+</li>
+<li>前后端数据列表相关的接口返回，<strong>如果为空</strong>，则返回<strong>空数组[]</strong>或<strong>空集合{}</strong>。</li>
+<li>服务端发生错误时，返回给前端的响应信息必须包含四个部分：<ol>
+<li>HTTP 状态码</li>
+<li>errorCode</li>
+<li>errorMessage</li>
+<li>用户提示信息</li>
+</ol>
+</li>
+<li>HTTP 请求通过 URL 传递参数时，不能超过 2048 字节。</li>
+<li>HTTP 请求通过 body 传递内容时，必须控制长度，超出最大长度后，后端解析会出错。<ol>
+<li>nginx 默认限制是 1MB，tomcat 默认限制为 2MB。</li>
+</ol>
+</li>
+<li>服务器返回信息必须被标记是否可以缓存<ol>
+<li>http1.1 中，s-maxage 告诉服务器进行缓存，时间单位为秒，用法如下：</li>
+<li><code>response.setHeader("Cache-Control", "s-maxage=" + cacheSeconds);</code></li>
+</ol>
+</li>
+<li><strong>前后端的时间格式</strong>统一为"<code>yyyy-MM-dd HH:mm:ss</code>"，统一为 <code>GMT</code>。</li>
+</ol>
+<h1 id="_10">其他</h1>
+<ol>
+<li><code>Math.random()</code> 这个方法返回是 <code>double</code> 类型，注意取值的范围 <code>0 ≤ x &lt; 1</code><ol>
+<li>如果想获取整数类型的随机数，直接使用 <code>Random</code> 对象的 <code>nextInt</code> 或者 <code>nextLong</code> 方法。</li>
+</ol>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -13,18 +13,22 @@
       
       
       
+        <link rel="prev" href="../DDL/">
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+        <link rel="next" href="../HikariCP%E8%BF%9E%E6%8E%A5%E6%B1%A0/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
     
     
       
-        <title>Lbb Notes</title>
+        <title>EXPLAIN - Lbb Notes</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.6f8fc17f.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6f8fc17f.min.css">
       
       
 
@@ -43,7 +47,7 @@
       
     
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -61,6 +65,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#explain" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -73,7 +82,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="Lbb Notes" class="md-header__button md-logo" aria-label="Lbb Notes" data-md-component="logo">
+    <a href="../.." title="Lbb Notes" class="md-header__button md-logo" aria-label="Lbb Notes" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -93,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              EXPLAIN
             
           </span>
         </div>
@@ -168,7 +177,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="Lbb Notes" class="md-nav__button md-logo" aria-label="Lbb Notes" data-md-component="logo">
+    <a href="../.." title="Lbb Notes" class="md-nav__button md-logo" aria-label="Lbb Notes" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -186,7 +195,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -203,17 +212,19 @@
       
   
   
+    
   
   
+  
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -227,7 +238,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Notes
@@ -241,7 +252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/notes/DDL/" class="md-nav__link">
+      <a href="../DDL/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -259,10 +270,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/notes/EXPLAIN/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    EXPLAIN
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -271,6 +302,53 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本使用
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      结果解释
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化建议
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -283,7 +361,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/notes/HikariCP%E8%BF%9E%E6%8E%A5%E6%B1%A0/" class="md-nav__link">
+      <a href="../HikariCP%E8%BF%9E%E6%8E%A5%E6%B1%A0/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -304,7 +382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/notes/%E5%BB%BA%E8%A1%A8%E8%A7%84%E7%BA%A6/" class="md-nav__link">
+      <a href="../%E5%BB%BA%E8%A1%A8%E8%A7%84%E7%BA%A6/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -325,7 +403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/notes/%E6%97%A5%E6%9C%9F%E8%8C%83%E5%9B%B4%E6%9F%A5%E8%AF%A2/" class="md-nav__link">
+      <a href="../%E6%97%A5%E6%9C%9F%E8%8C%83%E5%9B%B4%E6%9F%A5%E8%AF%A2/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -346,7 +424,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/notes/%E7%B4%A2%E5%BC%95%E7%BA%A6%E6%9D%9F/" class="md-nav__link">
+      <a href="../%E7%B4%A2%E5%BC%95%E7%BA%A6%E6%9D%9F/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -367,7 +445,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/notes/%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" class="md-nav__link">
+      <a href="../%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -388,7 +466,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/notes/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/" class="md-nav__link">
+      <a href="../%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -409,7 +487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/notes/%E8%BF%9E%E6%8E%A5%E6%B1%A0%E4%BD%BF%E7%94%A8%E7%8E%87100%25/" class="md-nav__link">
+      <a href="../%E8%BF%9E%E6%8E%A5%E6%B1%A0%E4%BD%BF%E7%94%A8%E7%8E%87100%25/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -447,6 +525,43 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本使用
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      结果解释
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化建议
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -458,8 +573,85 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+<h1 id="explain">EXPLAIN</h1>
+<p>使用 <code>EXPLAIN</code> 分析 SQL 查询可以帮助了解查询的执行计划，从而优化性能。</p>
+<h3 id="_1">基本使用</h3>
+<ol>
+<li>
+<p><strong>简单查询分析</strong>：</p>
+<ul>
+<li>
+<p>可以在 SQL 查询前加上 <code>EXPLAIN</code> 关键字。例如：</p>
+<p><code>sql
+EXPLAIN SELECT * FROM users WHERE age &gt; 30;</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>查看详细信息</strong>：</p>
+<ul>
+<li>
+<p>在某些数据库中，你可以使用 <code>EXPLAIN ANALYZE</code> 来获取更详细的执行计划和实际执行时间（例如 PostgreSQL）。这不仅显示计划，还显示实际执行的时间：</p>
+<p><code>sql
+EXPLAIN ANALYZE SELECT * FROM users WHERE age &gt; 30;</code></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="_2">结果解释</h3>
+<p><code>EXPLAIN</code> 的输出因数据库系统而异，但通常会包含以下信息：</p>
+<ul>
+<li><strong>id</strong>: 查询中执行步骤的标识符。</li>
+<li><strong>select_type</strong>: 查询的类型（如简单查询、子查询、派生表等）。</li>
+<li><strong>table</strong>: 正在访问的表。</li>
+<li><strong>type</strong>: 连接类型，表示查询中表的访问方法<ul>
+<li>如<code>ALL</code>、<code>index</code>、<code>range</code>、<code>ref</code>、<code>eq_ref</code>、<code>const</code> 等，<code>const</code>  最好。</li>
+</ul>
+</li>
+<li><strong>possible_keys</strong>: 查询可能使用的索引。</li>
+<li><strong>key</strong>: 实际使用的索引。</li>
+<li><strong>key_len</strong>: 使用的索引的长度。</li>
+<li><strong>ref</strong>: 哪些列或常量与索引一起使用。</li>
+<li><strong>rows</strong>: 估计需要读取的行数。</li>
+<li><strong>Extra</strong>: 其他信息，如是否使用临时表或文件排序。</li>
+</ul>
+<h3 id="_3">优化建议</h3>
+<ol>
+<li><strong>索引优化</strong>：<ul>
+<li>确保查询中使用的列上有适当的索引。</li>
+<li>检查 <code>possible_keys</code> 和 <code>key</code> 列，确保查询使用了合适的索引。</li>
+</ul>
+</li>
+<li><strong>查询重构</strong>：<ul>
+<li>尝试重构查询以减少扫描的行数。</li>
+<li>使用子查询、联合查询或视图来分解复杂的查询。</li>
+</ul>
+</li>
+<li><strong>避免全表扫描</strong>：<ul>
+<li>如果 <code>type</code> 列显示 <code>ALL</code>，<strong>表示全表扫描，通常需要优化</strong>。</li>
+</ul>
+</li>
+<li><strong>检查连接顺序</strong>：<ul>
+<li>确保连接顺序合理，减少不必要的行扫描。</li>
+</ul>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -493,10 +685,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "/", "features": [], "search": "/assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="/assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
     
   </body>
