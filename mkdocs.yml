@@ -1,16 +1,19 @@
 site_name: Lbb Notes
+site_author: Lbb
+repo_url: https://github.com/ban-l/lbb-notes
+repo_name: lbb-notes
 theme:
-  name: readthedocs
-  highlightjs: true
+  name: material
 plugins:
   - search
-  - mkdocstrings:
-      handlers:
-        # See: https://mkdocstrings.github.io/python/usage/
-        python:
-          options:
-            docstring_style: sphinx
 markdown_extensions:
-  - markdown_include.include:
-      base_path: .
-  - admonition
+  - admonition  # 支持提示框
+  - codehilite  # 代码高亮
+  - toc:  # 自动生成目录
+      permalink: true
+  - pymdownx.superfences  # 支持代码块嵌套
+  - pymdownx.highlight  # 更好的代码高亮
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ban-l/lbb-notes
