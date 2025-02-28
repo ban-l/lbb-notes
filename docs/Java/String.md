@@ -163,7 +163,7 @@ new String("abc")一共会创建两个字符串对象（Heap、String Pool，前
   - 堆中存的是指向“字符串常量池”的内存地址
   - 栈中存的是指向堆引用地址
 
-![image-20250226212656094](assets/image-20250226212656094.png)
+<img src="assets/image-20250227142607296.png" alt="image-20250227142607296" style="zoom:50%;" />
 
 ```java
 public String(String original) {
