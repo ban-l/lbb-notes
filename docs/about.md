@@ -1,2 +1,2 @@
 某东软件开发
-![](lb.jpg)
+![](assets/lb.jpg)
