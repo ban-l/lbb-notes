@@ -63,15 +63,15 @@ Caused by: java.lang.IllegalArgumentException: LoggerFactory is not a Logback Lo
 org.springframework.context.ApplicationContextException: Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException
 ```
 
-### 解决
+**解决**
 
-#### `application.properties`配置
+**`application.properties`配置**
 
 ```
 spring.mvc.pathmatch.matching-strategy=ant_path_matcher
 ```
 
-#### `SpringMVC`配置（可选）
+**`SpringMVC`配置（可选）**
 
 同时配置**静态资源和`swagger`**，否则可能**映射**`swagger`**失败**。
 
@@ -90,7 +90,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 }
 ```
 
-### Swagger2 - Security配置
+**Swagger2 - Security配置**
 
 `SpringBoot`项目若集成了`Spring Security`，如果不做额外配置，`Swagger2`文档可能**会被拦截**，此时只需要在 `Spring Security` **配置类**中**重写** `configure`方法，添加如下过滤即可：
 
