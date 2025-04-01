@@ -1,3 +1,79 @@
+
+
+## `tk.mybatis` 插入失败，主键重复
+
+**背景**
+
+数据库：id自增，当前`AUTO_INCREMENT=1411`。
+
+代码如下：
+
+```java
+// Mapper接口
+@org.apache.ibatis.annotations.Mapper
+public interface UserMapper extends Mapper<User> {
+}
+
+// 插入操作
+public void save(User user) {
+    userMapper.insertSelective(user);
+}
+```
+
+**插入失败，主键重复**
+
+第一次插入，插入成功。
+
+1. 对象`id`回写为0。
+2. 数据插入数据库，`id`为1411。
+3. `AUTO_INCREMENT=1412`
+
+```
+DEBUG(insertSelective-XNIO-1 tas:135) - ==>  Preparing: INSERT INTO user ( id,name,age ) VALUES( ?,?,? )
+DEBUG(insertSelective-XNIO-1 tas:135) - ==>  Parameters: 0(Long), 小明(String), 18(Integer)
+DEBUG(insertSelective-XNIO-1 tas:135) - <==  Updates: 1
+```
+
+第二次插入失败，报错主键重复。
+
+1. 对象`id`回写为1411。
+2. 数据库已存在`id`为1411的数据，插入失败。
+
+```
+DEBUG(insertSelective-XNIO-1 tas:135) - ==>  Preparing: INSERT INTO user ( id,name,age ) VALUES( ?,?,? )
+DEBUG(insertSelective-XNIO-1 tas:135) - ==>  Parameters: 1411(Long), 小明2(String), 19(Integer)
+ERROR(SessionConcurre-XNIO-1 tas:122) - 插入用户失败
+```
+
+第三次插入失败，报错主键重复。
+
+1. 对象`id`回写为1411。
+2. 数据库已存在`id`为1411的数据，插入失败。
+
+```
+DEBUG(insertSelective-XNIO-1 tas:135) - ==>  Preparing: INSERT INTO user ( id,name,age ) VALUES( ?,?,? )
+DEBUG(insertSelective-XNIO-1 tas:135) - ==>  Parameters: 1411(Long), 小明3(String), 20(Integer)
+ERROR(SessionConcurre-XNIO-1 tas:122) - 插入用户失败
+```
+
+后续插入操作均失败......
+
+**原因：`@org.apache.ibatis.annotations.Mapper`与`tk.mybatis`冲突。**
+
+- **重复注册**：`@Mapper`注解会注册接口，而`tk.mybatis`的`@MapperScan`也会注册它，导致注册两次。
+- **功能覆盖**：MyBatis 官方的注册逻辑可能无法正确识别`tk.mybatis`的扩展功能（如主键回写），导致部分配置失效。
+
+**解决方案一**
+
+1. `Mapper`接口移除`@org.apache.ibatis.annotations.Mapper`注解。
+2. 启动类/配置类加上`tk.mybatis` 的 `@MapperScan`。
+
+**解决方案二**
+
+主键字段加上`@Column(insertable = false)`，忽略id。
+
+------
+
 ## log4j12和logback 冲突
 
 **日志**
