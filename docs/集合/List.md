@@ -12,7 +12,7 @@
 
 ![image-20250401213151751](assets/image-20250401213151751.png)
 
-`ArrayList` 底层是⼀个 `Object[]` 数组（动态数组），支持随机访问。
+**`ArrayList` 底层数据结构是⼀个 `Object[]` 数组（动态数组），支持随机访问。**
 
 `ArrayList` 底层数组默认初始化容量为 10。
 
@@ -82,11 +82,88 @@
 
 ## Vector替代方案
 
-可以使用 `Collections.synchronizedList()`; 得到一个线程安全的 `ArrayList`。
+使用 `Collections.synchronizedList()`得到一个线程安全的 `ArrayList`。
 
 - `List<String> list = new  ArrayList<>();`
 - `List<String> synList =  Collections.synchronizedList(list);`
 
-可以使用 `concurrent` 并发包下的 `CopyOnWriteArrayList` 类。
+使用 `concurrent` 并发包下的 `CopyOnWriteArrayList` 类。
 
 - `List<String> list = new   CopyOnWriteArrayList<>();`
+
+## LinkedList
+
+![image-20250402202425391](assets/image-20250402202425391.png)
+
+`LinkedList`底层数据结构是实现了`List`和`Deque`接口的**双向链表**，只能顺序访问，但可以快速地在链表中间插入和删除元素。
+
+`LinkedList` 还可以用作**栈、队列和双向队列**。
+
+`LinkedList`也有下标，但内存不⼀定连续（`ArrayList` 内存连续）。
+
+`LinkedList` 可以调⽤ `get(int index)`  ⽅法，返回链表中第 `index` 个元素 但是每次查找都要从头开始遍历。   
+
+`LinkedList` 使用 `Node` 存储链表节点信息，链表节点存储了 `first` 和 `last` 指针。
+
+注意
+
+- 双向链表按照下标查找，选择从头部查或从尾部查找，双向链表按照下标查找时间复杂度是`O(n/2)`
+- 默认尾部插⼊，也可以明确指定插⼊⽅式（头部插⼊、中间插⼊、尾部插⼊）
+- 具有`fail-fast`机制
+
+```java
+private static class Node<E> {
+    E item;
+    Node<E> next;
+    Node<E> prev;
+    Node(Node<E> prev, E element, Node<E> next) {
+        this.item = element;
+        this.next = next;
+        this.prev = prev;
+    }
+}
+```
+
+```java
+
+public class LinkedList<E>
+    extends AbstractSequentialList<E>
+    implements List<E>, Deque<E>, Cloneable, java.io.Serializable
+{
+    transient int size = 0;
+
+    /**
+     * Pointer to first node.
+     * Invariant: (first == null && last == null) ||
+     *            (first.prev == null && first.item != null)
+     */
+    transient Node<E> first;
+
+    /**
+     * Pointer to last node.
+     * Invariant: (first == null && last == null) ||
+     *            (last.next == null && last.item != null)
+     */
+    transient Node<E> last;
+
+    /**
+     * Constructs an empty list.
+     */
+    public LinkedList() {
+    }
+    ......
+}
+```
+
+![image-20250402202030093](assets/image-20250402202030093.png)
+
+## LinkedList 与 ArrayList 的比较
+
+**`ArrayList` 基于动态数组实现，`LinkedList` 基于双向链表实现。**
+
+`ArrayList` 和 `LinkedList` 的区别可以归结为**数组和链表的区别**。
+
+- 数组支持随机访问，但插入删除的代价很高，需要移动大量元素。
+- 链表不支持随机访问（顺序访问），但插入删除只需要改变指针。
+  - 优点： 增/删效率⾼。
+  - 缺点： 查询效率较低。
