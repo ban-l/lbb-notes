@@ -13,3 +13,18 @@
 3. 清空tmp文件夹里的数据；或者删除这个文件
 
 执行完操作，重启mysql 服务，最后执行命令：`show variables like '%dir%'`，查看设置是否正确生效。
+
+## null, message from server: “Host ‘xx.xx.xx.xx‘ is not allowed to connect to this MySQL server“
+
+**原因：没有权限**
+
+**解决**
+
+1. 登录mysql
+   1. `mysql -u root -p`
+2. 切换数据库
+   1. `use mysql`
+3. 修改root用户的权限
+   1. `update user set host = '%' where user = 'root' ;`
+4. 刷新权限
+   1. `flush privileges`
