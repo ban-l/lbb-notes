@@ -1,3 +1,31 @@
+# Zookeeper 异常记录
+
+## KeeperException$ConnectionLossException
+
+客户端连接zookeeper报错：`org.apache.zookeeper.KeeperException$ConnectionLossException`
+
+原因：客户端与服务器之间的连接问题
+
+解决：
+
+1. 网络连接
+
+2. 确认ZooKeeper服务器状态
+
+3. 确认客户端配置，例如：sessionTimeout
+
+   1. 在zookeeper的log目录下查看日志文件，看是否有显示超时的日志
+
+   2. tail -n100 .out文件
+
+   3. ```
+      Unable to read additional data from client sessionid 0x0, likely client has closed socket
+      ```
+
+4. 验证版本兼容性
+
+5. 重连机制：连接异常，重连其它节点
+
 ## Apache Curator 版本兼容
 
 `Apache Curator` 是一个高层次的 `Zookeeper` **客户端库。**
