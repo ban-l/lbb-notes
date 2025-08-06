@@ -27,7 +27,7 @@ Warning Unhealthy 9m44s kubelet Readiness probe failed: Get “<http://127.0.0.1
 解决：`initialDelaySeconds`参数 配置长一点，例如`30`秒
 
 - `initialDelaySeconds: 30` ，容器启动后延迟 `30` 秒开始探测
-
+------
 ## nodes are available: 1 node(s) were unschedulable......
 
 ### 问题

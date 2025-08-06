@@ -25,7 +25,7 @@
 4. 验证版本兼容性
 
 5. 重连机制：连接异常，重连其它节点
-
+------
 ## Apache Curator 版本兼容
 
 `Apache Curator` 是一个高层次的 `Zookeeper` **客户端库。**

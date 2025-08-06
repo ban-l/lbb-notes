@@ -180,7 +180,7 @@ public void configure(WebSecurity web) throws Exception {
 
 ------
 
-## org.apache.commons.pool2.impl.GenericObjectPoolConfig.setMaxWait(Ljava/time/Duration;)V
+## org.apache.commons.pool2.impl.GenericObjectPoolConfig.setMaxWait(Ljava/time/Duration;)
 
 **原因：**
 

@@ -25,6 +25,8 @@
 
    - 以开启sasl_ssl访问的Kafka实例为例，执行如下命令：`curl -kv {ip}:{port}`
 
+------
+
 ## offset commit failed on partition the request timed out
 
 根据Kafka 报错 ，通常意味着 Kafka 消费者在尝试提交偏移量时超时了。
@@ -34,7 +36,7 @@
 - 网络延迟或不稳定：消费者与 Kafka 集群之间的网络连接不稳定或延迟较高。
 - Kafka 配置不合理：某些配置参数设置不当，导致消费者无法在规定时间内完成偏移量提交。
 - 消费者处理时间过长：消费者处理消息的时间超过了 Kafka 的会话超时时间（session.timeout.ms)），导致 Kafka 认为消费者已死亡并重新分配分区。
-
+------
 ## 不消费消息问题（消费者组中多个消费者）
 
 如果发现一个**消费者客户端A**已经启动了，但是就是不消费消息
@@ -43,6 +45,7 @@
 
 消息可能被**消费者组**中其它消费者线程**抢走**（负载均衡机制）
 
+------
 ## 新消费组需要注意的问题（latest+新消费组）
 
 背景：kafka偏移量策略设置为latest，场景重现：
@@ -60,8 +63,8 @@
 - 先启动服务（创建新消费组），再生产消息。（注意服务启动顺序）
   - **服务启动一次后**，**新消费组已经被创建**，之后只要服务启动都会自动消费消息
 - 或者偏移量策略设置为**earliest**
-
-## Unexpected handshake request with client mechanism PLAIN, enabled mechanisms are []
+------
+## Unexpected handshake request with client mechanism PLAIN, enabled mechanisms are 
 
 Kafka配置时出现`IllegalSaslStateException`，客户端使用了不被集群支持的PLAIN认证机制。
 
