@@ -1,0 +1,252 @@
+## maven install (repackage failed: Unable to find main class）
+
+背景
+
+- 自定义starter打成jar包，但`maven install`时却提示缺少主类，但这是一个公共模块，无主类。
+
+原因
+
+- 使用spring boot项目，用的maven插件为`spring-boot-maven-plugin`
+
+- 用此插件打包时，会默认寻找签名是`public static void main(String[] args)`的方法，没有所以报错
+
+**解决1：修改配置，`<skip>true</skip>`**
+
+```xml
+<plugin>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-maven-plugin</artifactId>
+    <configuration>
+        <skip>true</skip>
+    </configuration>
+</plugin>
+```
+
+**解决2：改用apache的maven插件**
+
+```xml
+ <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+</plugin>
+```
+
+------
+
+## An attempt was made to call a method that does not exist. 
+
+`An attempt was made to call a method that does not exist. The attempt was made from the following location:`
+
+依赖版本冲突，可能更新了依赖，不兼容之前的配置
+
+------
+
+## 循环依赖问题
+
+**问题描述**
+
+```
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+   kafkaConfig
+      ↓
+   backContainerImpl
+      ↓
+   resultConsumerFactory
+┌─────┐
+|  timeWheelOperations defined in class path resource [cc/wellcloud/framework/timewheel/spring/boot/autoconfigure/config/TimeWheelAutoConfiguration.class]
+↑     ↓
+|  redisTimeWheel defined in class path resource [cc/wellcloud/framework/timewheel/spring/boot/autoconfigure/config/TimeWheelAutoConfiguration.class]
+↑     ↓
+|  customDelayTaskListener defined in file [D:\\workspace-wellcloud\\custom-module\\target\\classes\\cc\\wellcloud\\ocm\\timewheel\\CustomDelayTaskListener.class]
+└─────┘
+```
+
+**解决**
+
+1. 单例模式下的`setter`循环依赖
+2. 使用 `@Lazy` 注解
+3. 使用 `@Configuration `和 `@Bean` 显式地定义Bean的创建顺序。
+4. 使用 `@Lookup` 注解解决循环依赖
+
+------
+
+## log4j12和logback 冲突
+
+**日志**
+
+```log
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/var/app/ocm-manager.jar!/BOOT-INF/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/var/app/ocm-manager.jar!/BOOT-INF/lib/logback-classic-1.2.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+Exception in thread "main" java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:48)
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:87)
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:50)
+        at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:51)
+Caused by: java.lang.IllegalArgumentException: LoggerFactory is not a Logback LoggerContext but Logback is on the classpath. Either remove Logback or the competing implementation (class org.slf4j.impl.Log4jLoggerFactory loaded from jar:file:/var/app/ocm-manager.jar!/BOOT-INF/lib/slf4j-log4j12-1.7.25.jar!/). If you are using WebLogic you will need to add 'org.slf4j' to prefer-application-packages in WEB-INF/weblogic.xml: org.slf4j.impl.Log4jLoggerFactory
+        at org.springframework.util.Assert.instanceCheckFailed(Assert.java:655)
+        at org.springframework.util.Assert.isInstanceOf(Assert.java:555)
+```
+
+**原因**：项目中同时存在Logback和Log4j 1.x的SLF4J绑定，导致SLF4J无法确定使用哪个日志框架。
+
+**解决**：**保留Logback（推荐）**
+
+移除冲突的 `slf4j-log4j12` 依赖，保持Spring Boot默认的Logback。
+
+1. **查找依赖来源**：使用Maven分析依赖树，找到引入 `slf4j-log4j12` 的库：
+
+   ```bash
+   mvn dependency:tree | grep slf4j-log4j12
+   ```
+
+2. **排除冲突依赖**：在对应的依赖项中添加排除：
+
+   ```xml
+   <dependency>
+       <groupId>your.dependency.group</groupId>
+       <artifactId>your-dependency-artifact</artifactId>
+       <version>your-version</version>
+       <exclusions>
+           <exclusion>
+               <groupId>org.slf4j</groupId>
+               <artifactId>slf4j-log4j12</artifactId>
+           </exclusion>
+       </exclusions>
+   </dependency>
+   ```
+
+3. **验证依赖**：重新构建项目并检查 `slf4j-log4j12` 是否已移除。
+
+------
+
+## Swagger2 - 版本冲突:documentationPluginsBootstrapper
+
+版本冲突导致项目**启动报错**
+
+```java
+2024-07-29 10:23:24.385 ERROR 40632 --- [main] o.s.boot.SpringApplication : Application run failed
+org.springframework.context.ApplicationContextException: Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException
+```
+
+**解决**
+
+**`application.properties`配置**
+
+```
+spring.mvc.pathmatch.matching-strategy=ant_path_matcher
+```
+
+**`SpringMVC`配置（可选）**
+
+同时配置**静态资源和`swagger`**，否则可能**映射**`swagger`**失败**。
+
+```java
+@Configuration
+public class WebMvcConfig implements WebMvcConfigurer {
+    @Overrde
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 静态资源配置
+        registry.addResourceHandler("/**").
+                addResourceLocations("classpath:/static/");
+        // swagger配置
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+    }
+}
+```
+
+**Swagger2 - Security配置**
+
+`SpringBoot`项目若集成了`Spring Security`，如果不做额外配置，`Swagger2`文档可能**会被拦截**，此时只需要在 `Spring Security` **配置类**中**重写** `configure`方法，添加如下过滤即可：
+
+```java
+@Override
+public void configure(WebSecurity web) throws Exception {
+   web.ignoring()
+           .antMatchers("/swagger-ui.html")
+           .antMatchers("/v2/**")
+           .antMatchers("/swagger-resources/**");
+}
+```
+
+------
+
+## org.apache.commons.pool2.impl.GenericObjectPoolConfig.setMaxWait(Ljava/time/Duration;)
+
+**原因：**
+
+`spring-boot-starter-parent`和`spring-data-redis(commons-pool2)`版本冲突
+
+**解决：**
+
+1. 单独升级`commons-pool2`版本
+2. 降低`spring-boot`版本
+
+------
+
+## jar运行报错no main manifest attribute
+
+**原因：找不到主类。**
+
+一般情况下，`java`打包成 `jar`包需要在`MANIFEST.MF` 中指定 `Start-Class`项，以便运行 `java -jar xxx.jar` 时找到对应的**主类**。
+
+查看`META-INF`下的`MANIFEST.MF`，正常的文件如下：
+
+```
+Manifest-Version: 1.0
+Spring-Boot-Classpath-Index: BOOT-INF/classpath.idx
+Archiver-Version: Plexus Archiver
+Built-By: Ban
+Spring-Boot-Layers-Index: BOOT-INF/layers.idx
+Start-Class: cc.wellcloud.cloud.CallbackSupplementApplication
+Spring-Boot-Classes: BOOT-INF/classes/
+Spring-Boot-Lib: BOOT-INF/lib/
+Spring-Boot-Version: 2.7.18
+Created-By: Apache Maven 3.8.1
+Build-Jdk: 1.8.0_261
+Main-Class: org.springframework.boot.loader.JarLauncher
+```
+
+**解决：修改`POM`文件中的打包插件配置**
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+          	......
+        </plugin>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${spring-boot.version}</version>
+            <configuration>
+		            <!-- 主类 -->
+                <mainClass>cc.wellcloud.cloud.CallbackSupplementApplication</mainClass>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>repackage</id>
+                    <goals>
+                        <goal>repackage</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+    <!-- 置打包后的jar包名称 -->
+    <finalName>callback-supplement</finalName>
+</build>
+```
+

@@ -1,4 +1,4 @@
-# druid连接耗尽导致报错
+# druid连接耗尽
 
 ```log
 Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is com.alibaba.druid.pool.GetConnectionTimeoutException: wait millis 60000, active 1, maxActive 20, creating 1, ......

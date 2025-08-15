@@ -1,3 +1,17 @@
+## 基础镜像不支持中文
+
+在使用`Docker`或`Kubernetes`等容器技术时，有时会遇到**基础镜像不支持中文**导致的错误
+
+`Malformed input or input contains unmappable characters`
+
+比如使用`java.nio.file.Path`规范并解析路径，生成文件到本地，部分文件名带中文。会报错误：
+
+- `Malformed input or input contains unmappable characters: uuid-测试文件名.txt`
+
+![image-20250327140014822](assets/image-20250327140014822.png)
+
+------
+
 ## K8s HTTP GET 探针失败
 
 问题
