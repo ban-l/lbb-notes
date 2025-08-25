@@ -1,3 +1,17 @@
+## com.fasterxml.jackson.core.util.JacksonFeature
+
+问题：jackson-core的JacksonFeature依赖在jackson-core2.12.0之后的版本才引入
+
+解决：排除依赖，修改版本
+
+```xml
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-core</artifactId>
+    <version>2.12.0</version>
+</dependency>
+```
+
 ## safeMode not support autoType : …
 
 **原因**：fastjson开启了**安全模式**(safeMode)
