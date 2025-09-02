@@ -1,3 +1,84 @@
+## JedisConnectionFactory was destroyed and cannot be used anymore
+
+**错误信息：**
+
+```
+02/11:15:27.123 WARN (AnnotationConfi-main      :633) - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'timeWheelTriggerController': Invocation of init method failed
+02/11:15:27.141 ERROR(SpringApplicati-main      :859) - Application run failed
+
+java.lang.IllegalStateException: JedisConnectionFactory was destroyed and cannot be used anymore
+	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.assertInitialized(JedisConnectionFactory.java:1061)
+	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.getConnection(JedisConnectionFactory.java:880)
+	at org.springframework.data.redis.core.RedisConnectionUtils.fetchConnection(RedisConnectionUtils.java:195)
+	at org.springframework.data.redis.core.RedisConnectionUtils.doGetConnection(RedisConnectionUtils.java:144)
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:105)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:383)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:363)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:350)
+	at org.springframework.data.redis.stream.DefaultStreamMessageListenerContainer.lambda$getReadFunction$4(DefaultStreamMessageListenerContainer.java:235)
+	at org.springframework.data.redis.stream.StreamPollTask.readRecords(StreamPollTask.java:146)
+	at org.springframework.data.redis.stream.StreamPollTask.doLoop(StreamPollTask.java:127)
+	at org.springframework.data.redis.stream.StreamPollTask.run(StreamPollTask.java:112)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+```
+
+**错误分析：**
+
+应用程序（通常是 Spring 应用上下文）正在尝试使用一个已经被销毁（destroyed）的 `JedisConnectionFactory` Bean。
+
+在 Spring 中，当一个 Bean 被销毁后（例如在应用关闭时），它所占用的资源（如网络连接、线程池等）会被清理，任何试图再次使用它的操作都会抛出 `IllegalStateException`。
+
+1. **主要问题**：`timeWheelTriggerController` Bean 初始化失败导致整个应用启动失败。
+2. **连锁反应**：应用启动失败触发 Spring 上下文销毁流程，`JedisConnectionFactory` 被销毁。
+3. **最终表现**：Redis Stream 监听线程仍在运行并尝试使用已被销毁的连接工厂，导致 `IllegalStateException`。
+
+**详细错误堆栈解读：**
+
+1. `timeWheelTriggerController` Bean 初始化失败导致整个应用启动失败，触发 Spring 上下文销毁流程。
+2. Redis Stream 监听线程仍在运行并尝试使用已被销毁的连接工厂，导致 `IllegalStateException`。
+3. **触发点 (at ...JedisConnectionFactory.assertInitialized:1061):**
+   `JedisConnectionFactory` 内部有一个 `destroyed` 状态标志。在调用任何实际操作（如 `getConnection()`）之前，它会调用 `assertInitialized()` 方法来检查自身状态。如果发现 `destroyed` 为 `true`，就立即抛出这个 `IllegalStateException`。
+4. **调用链 (getConnection -> RedisConnectionUtils.getConnection -> RedisTemplate.execute -> ...):**
+   堆栈显示，错误源于一个 `RedisTemplate.execute(...)` 的调用，其目的是为了执行一个 Redis 操作（这里是 Stream 相关的监听任务 `DefaultStreamMessageListenerContainer`）。
+5. **执行上下文 (at ...ThreadPoolExecutor.runWorker...Thread.run):**
+   最关键的信息是，这个操作是在一个**子线程**（由 `ThreadPoolExecutor` 管理）中运行的。这说明问题发生在**多线程环境**下。
+
+**根本原因：应用关闭过程中的生命周期竞争条件（Race Condition）。**
+
+1. 应用使用了 Spring Data Redis 的 Stream 监听功能（`@EnableRedisStreams`, `StreamMessageListenerContainer` 等），它会启动后台线程（如堆栈中的 `ThreadPoolExecutor`）来持续轮询 Redis 消息。
+2. 当应用开始关闭时，Spring 的 `ApplicationContext` 开始执行销毁流程。
+3. 销毁流程是有顺序的。Spring 会先发送上下文关闭事件，然后**单线程地**、按照依赖关系倒序销毁所有的 Bean。
+4. **`JedisConnectionFactory` 被先销毁了**（将其状态标记为 `destroyed` 并关闭连接池）。
+5. 然而，那个用于 Stream 监听的后台线程**还没有被及时关闭或中断**，它仍然在工作，试图从 Redis 获取新消息。当它下一次调用 `redisTemplate.execute()` 时，就会向已经被销毁的 `JedisConnectionFactory` 请求获取连接，从而抛出上述异常。
+
+**解决方案：**正确配置 StreamMessageListenerContainer 的生命周期，程序启动失败时，关闭streamContainer。
+
+```java
+@Component
+@RequiredArgsConstructor
+public class ElegantExit implements ApplicationListener<ApplicationFailedEvent> {
+
+    private final StreamMessageListenerContainer<String, ObjectRecord<String, String>> streamContainer;
+
+    @Override
+    public void onApplicationEvent(ApplicationFailedEvent event) {
+        log.warn("程序启动失败，关闭streamContainer");
+        if (streamContainer != null && streamContainer.isRunning()) {
+            try {
+                streamContainer.stop();
+            } catch (Exception e) {
+                log.error("关闭streamContainer时发生异常", e);
+            }
+        }
+    }
+
+}
+```
+
+------
+
 ## maven install (repackage failed: Unable to find main class）
 
 背景
