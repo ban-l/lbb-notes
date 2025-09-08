@@ -1,3 +1,72 @@
+## Logging system failed to initialize using configuration from 'null'
+
+**原因：Logback 版本与 Spring Boot 期望的版本不匹配。**
+
+- 低版本不需要logback.xml
+
+- 高版本需要logback.xml
+
+**解决：增加logback配置**
+
+- application.yaml
+
+```yaml
+logging:
+  config: classpath:logback.xml
+```
+
+- logback.xml
+
+```xml
+<configuration scan="true" scanPeriod="30 seconds" DEBUG="true" >
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{dd/HH:mm:ss.SSS} %-5level\(%15.-15logger{0}-%-10.-10thread:%line\) - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+    </appender>
+
+    <appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/trace.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/trace_%d{yyyy-MM-dd-HH}.%i.log.zip</fileNamePattern>
+            <maxFileSize>20MB</maxFileSize>
+            <totalSizeCap>4000MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{dd/HH:mm:ss.SSS} %-5level\(%20.-20logger{0}-%-10.-10thread %5X{threadId}\) - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+    </appender>
+
+    <appender name="async-DEBUG" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>10240</queueSize>
+        <neverBlock>true</neverBlock>
+        <appender-ref ref="DEBUG" />
+        <maxFlushTime>1000</maxFlushTime>
+    </appender>
+
+    <root level="WARN">
+        <appender-ref ref="async-DEBUG"/>
+        <appender-ref ref="stdout"/>
+    </root>
+
+    <!-- 定义目录及日志级别 -->
+    <logger name="com.example.demo" level="DEBUG"/>
+
+</configuration>
+
+```
+
+
+
 ## JedisConnectionFactory was destroyed and cannot be used anymore
 
 **错误信息：**
