@@ -87,7 +87,8 @@ PrintWriter out = new PrintWriter("test.txt",StandardCharsets.UTF_8);
 - Java编译器可以让字符串共享
   - 若有多个String类对象的字符内容相同，则这些字符串变量（引用）都指向存储池中相同的位置（共享）
 - 只有 String 是不可变的，才可能使用 String Pool（安全）
-- ![image-20250226210054313](assets/image-20250226210054313.png)
+
+![image-20250929205259832](assets/image-20250929205259832.png)
 
 ### 3. 参数安全性（参数不可变）
 
@@ -163,7 +164,7 @@ new String("abc")一共会创建两个字符串对象（Heap、String Pool，前
   - 堆中存的是指向“字符串常量池”的内存地址
   - 栈中存的是指向堆引用地址
 
-![image-20250228204701601](assets/image-20250228204701601.png)
+![image-20250929205315429](assets/image-20250929205315429.png)
 
 ```java
 public String(String original) {
