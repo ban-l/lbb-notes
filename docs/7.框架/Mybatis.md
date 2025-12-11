@@ -1,0 +1,120 @@
+# MyBatis
+
+## 1. MyBatis是什么
+
+MyBatis 是一款优秀的持久层，半ORM框架，它支持自定义 SQL、存储过程以及高级映射。
+
+- ORM，Object Relational Mapping，对象关系映射。
+- 内部封装了JDBC(Java Database connect)，加载驱动、创建连接、创建statement等繁杂的过程。
+  - 避免了几乎所有的 JDBC 代码、手动设置参数以及获取结果集。
+- 开发者开发时只需要关注如何编写SQL语句，可以严格控制sql执行性能，灵活度高。
+- 作为一个半ORM框架，可以通过 XML 或 注解来配置和映射原始类型、接口和 Java POJO 为数据库中的记录。
+
+### 从执行 sql 到返回 result 的过程
+
+1. 配置statement：通过xml 文件或注解的方式将要执行的各种 statement 配置起来；
+2. 生成SQL：通过java对象和 statement中sql的动态参数进行映射，生成最终执行的sql语句；
+3. 执行SQL并返回结果：由mybatis框架执行sql，并将结果映射为java对象并返回。
+
+MyBatis专注于SQL本身，灵活度高，所以比较适合对性能的要求很高，或者需求变化较多的项目，如互联网项目。
+
+## 2. Mybaits的优缺点
+
+### 优点：
+
+- 基于SQL语句编程，相当灵活，SQL写在XML里，解除sql与程序代码的耦合，便于统一管理；
+
+- 提供XML标签，支持编写动态SQL语句，并可重用；
+
+- 减少了50%以上的代码量，消除了JDBC大量冗余的代码，不需要手动开关连接；
+- 与各种数据库兼容，JDBC支持的数据库，MyBatis都支持；
+
+- 与Spring很好的集成；
+
+- 提供映射标签，支持对象与数据库字段关系映射。
+
+### 缺点：
+
+- SQL语句的编写工作量较大，尤其当字段多、关联表多时，对开发人员编写SQL语句的功底有一定要求；
+
+- SQL语句依赖于数据库，导致数据库移植性差，不能随意更换数据库。
+
+## 3. 半自动ORM和全自动ORM
+
+Mybatis与全自动ORM的区别：手动编写SQL。
+
+Hibernate属于全自动ORM映射工具，使用Hibernate查询时，可以根据对象关系模型直接获取，所以Hibernate是全自动的。
+
+Mybatis在查询时，需要手动编写sql来完成，所以Mybatis是半自动ORM映射工具。
+
+## 4. Hibernate 和 MyBatis 的区别
+
+**最大区别：SQL编写、SQL优化、可移植性。**
+
+### 相同点
+
+Hibernate和MyBatis都是对jdbc的封装，都是持久层的框架，都用于dao层的开发。
+
+### 不同点
+
+1、映射关系
+
+- MyBatis 是一个半自动映射的框架，配置Java对象与sql语句执行结果的对应关系，**多表关联关系配置简单**。
+- Hibernate 是一个全自动映射的框架，配置Java对象与数据库表的对应关系，**多表关联关系配置复杂**。
+
+2、 SQL优化和移植性
+
+Hibernate 
+
+- Hibernate 对**SQL语句封装**，提供了日志、缓存、级联等特性；
+- 此外还提供 HQL（Hibernate Query Language）操作数据库，**数据库无关性支持好**，但会多消耗性能；
+- 代码开发量少，SQL语句优化困难。 
+
+MyBatis 
+
+- MyBatis 需要手动编写 SQL，**支持动态 SQL**、处理列表、动态生成表名、支持存储过程；
+- 直接使用SQL语句操作数据库，不支持数据库无关性；
+- 开发工作量相对大些，但**sql优化容易**；
+
+3、开发难易程度和学习成本
+
+- Hibernate 是重量级框架，学习使用门槛高，适合于需求相对稳定，中小型的项目，比如：办公自动化系统
+- MyBatis 是轻量级框架，学习使用门槛低，适合于需求变化频繁，大型的项目，比如：互联网电子商务系统
+
+总结
+
+- MyBatis 是一个小巧、方便、高效、简单、直接、半自动化的持久层框架，
+- Hibernate 是一个强大、方便、高效、复杂、间接、全自动化的持久层框架。
+
+## 5. JDBC不足，MyBatis如何解决
+
+1. 数据库链接创建、释放频繁，造成系统资源浪费，从而影响系统性能，使用数据库链接池。
+   - 解决：在SqlMapConfig.xml中配置数据链接池，使用连接池管理数据库链接。 
+
+2. Sql语句写在代码中造成代码不易维护，实际应用sql变化的可能较大，sql变动需要改变java代码。
+   - 解决：将Sql语句配置在XML文件中，SQL和代码语句分离。
+
+3. 向sql语句传参数麻烦，因为sql语句的where条件不一定，占位符需要和参数一一对应。
+   - 解决： Mybatis自动将java对象映射至sql语句
+4. 对结果集解析麻烦，sql变化导致解析代码变化，且解析前需要遍历。
+   - 解决：Mybatis自动将sql执行结果映射至java对象
+
+## 6. MyBatis编程步骤是什么样的？
+
+1. 创建SqlSessionFactory     
+2. 通过SqlSessionFactory创建SqlSession 
+3. 通过sqlsession执行数据库操作 
+4. 调用session.commit()提交事务 
+5. 调用session.close()关闭会话
+
+### 四个核心组件：
+
+1. SqlSessionFactoryBuilder（构造器）：它会根据配置或者代码来生成 SqlSessionFactory，采用的是分步构建的 Builder 模式。
+2. SqlSessionFactory（工厂接口）：依靠它来生成 SqlSession，使用的是工厂模式。
+
+3. SqlSession（会话）：一个可以发送 SQL执行并返回结果，也可以获取 Mapper 的接口。
+   1. 在现有的技术中，一般我们会让其在业务逻辑代码中“消失”。
+   2. 而使用的是 MyBatis 提供的 SQL Mapper 接口编程技术，它能提高代码的可读性和可维护性。
+
+4. SQL Mapper（映射器）：它由一个 Java接口和 XML 文件（或注解）构成，需要给出对应的 SQL 和映射规则。
+   1. 它负责发送 SQL 去执行，并返回结果。
